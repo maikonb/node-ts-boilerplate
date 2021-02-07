@@ -1,15 +1,22 @@
 import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import cors from "cors";
 import router from "../routes";
+import cors from 'cors';
 
 dotenv.config();
+
+const options: cors.CorsOptions = {
+  allowedHeaders: ['Origin','X-Requested-With','Content-Type','Accept','X-Access-Token'],
+  methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
+  //origin: process.env.API_URL,
+  origin: "*",
+};
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(cors);
+app.use(cors(options));
 app.use(router);
 
 const port = process.env.SERVER_PORT;
