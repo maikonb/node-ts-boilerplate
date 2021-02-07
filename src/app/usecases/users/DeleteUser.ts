@@ -1,8 +1,8 @@
 
-import { Result } from "../../../common/Result";
-import { UseCase } from "../../../common/UseCase";
-import { uuidDTO } from "../../../common/uuidDTO";
-import { UserRepo } from "../../../repos/UserRepo";
+import { Result } from "../../common/Result";
+import { UseCase } from "../../common/UseCase";
+import { uuidDTO } from "../../common/uuidDTO";
+import { UserRepo } from "../../repos/UserRepo";
 import { Inject } from "typescript-ioc";
 
 export type DeleteUserResponse = Result<void>;

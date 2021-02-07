@@ -10,3 +10,5 @@ npm install --save dotenv
 npm install --save @types/express
 npm install babel-jest --save-dev
 npm install ts-node --save-dev
+npm install --save cors
+npm install @types/cors --save
