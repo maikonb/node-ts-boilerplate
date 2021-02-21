@@ -1,4 +1,4 @@
-import { Repository } from "../common/Repository";
+import { Repository } from "../common/Repository/Repository";
 import { Name } from "../domain/Name";
 
 export abstract class NameRepo extends Repository<Name> {
