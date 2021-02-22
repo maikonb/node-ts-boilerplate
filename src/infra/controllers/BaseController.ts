@@ -27,4 +27,25 @@ export abstract class BaseController {
   protected success(res: express.Response, data?: any) {
     return this.sendResponse(res, 200, { data });
   }
+
+  protected created(res: express.Response, data?: any) {
+    return this.sendResponse(res, 201, { data });
+  }
+  
+  protected internalError(res: express.Response, data?: any) {
+    return this.sendResponse(res, 501, { data });
+  }
+  
+  protected badRequest(res: express.Response, data?: any) {
+    return this.sendResponse(res, 400, { data });
+  }
+  
+  protected unauthorized(res: express.Response, data?: any) {
+    return this.sendResponse(res, 401, { data });
+  }
+  
+  protected forbiden(res: express.Response, data?: any) {
+    return this.sendResponse(res, 403, { data });
+  }
+  
 } 

@@ -1,19 +1,18 @@
 import { Inject } from "typescript-ioc";
+import { ResponseType } from "../../common/Repository/Repository";
 import {UseCase} from "../../common/UseCase";
 import {Name} from "../../domain/Name";
 import { NameRepo } from "../../repos/NameRepo";
 
-export interface Response {
-  names: Name[];
-};
 
-export class ListAllNames extends UseCase<Request, Response> {
+export class ListAllNames extends UseCase<Request, ResponseType<Name[]>> {
   
   @Inject
   private repo: NameRepo;
 
-  async execute(): Promise<Response> {
+  async execute(request?: Request): Promise<ResponseType<Name[]>> {
     let names = await this.repo.all();
-    return Promise.resolve({ names });
+    return names;
   }
+
 }

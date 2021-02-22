@@ -7,12 +7,12 @@ export class Result<T extends ResultType> {
 
   readonly isSuccess: boolean;
   readonly isFailure: boolean
-  readonly result: T;
+  readonly data: T;
 
   private constructor (isSuccess: boolean, value?: T) {
     this.isSuccess = isSuccess;
     this.isFailure = !isSuccess;
-    this.result = value;
+    this.data = value;
   }
 
   public static success<T extends ResultSuccess<any>> (res: T) : Result<T> {
