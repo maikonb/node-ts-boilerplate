@@ -10,7 +10,7 @@ export class ListAllNames extends UseCase<Request, ResponseType<Name[]>> {
   @Inject
   private repo: NameRepo;
 
-  async execute(request?: Request): Promise<ResponseType<Name[]>> {
+  protected async executeImpl(request?: Request): Promise<ResponseType<Name[]>> {
     let names = await this.repo.all();
     return names;
   }

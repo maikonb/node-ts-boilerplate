@@ -1,3 +1,12 @@
 export abstract class UseCase<Request, Response> {
-  abstract execute (request?: Request) : Promise<Response> | Response;
+  
+  private chainOfHandlers: UseCase<Request, Request>[] = [];
+
+  execute (request?: Request) : Promise<Response> | Response {
+    return this.executeImpl(request);
+  }
+
+  protected abstract executeImpl (request?: Request) : Promise<Response> | Response;
+
+
 }
