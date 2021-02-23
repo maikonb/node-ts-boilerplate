@@ -1,6 +1,10 @@
 export abstract class UseCase<Request, Response> {
   
-  private chainOfHandlers: UseCase<Request, Request>[] = [];
+  protected chainedHandlers: UseCase<Request, Request> = null;
+
+  constructor() {
+
+  }
 
   execute (request?: Request) : Promise<Response> | Response {
     return this.executeImpl(request);
