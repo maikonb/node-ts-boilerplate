@@ -7,7 +7,7 @@ export class Result<T extends ResultType> {
 
   readonly isSuccess: boolean;
   readonly isFailure: boolean
-  readonly data: T;
+  readonly data: T | undefined;
 
   private constructor (isSuccess: boolean, value?: T) {
     this.isSuccess = isSuccess;

@@ -8,6 +8,7 @@ export class CheckAuthenticationHandler<Request, Response> extends UseCaseHandle
   }
 
   handle(request?: Request): Response | Promise<Response> {
+    console.log('CheckAuthenticationHandler - Handle');
     return this.next(request)
   }
 

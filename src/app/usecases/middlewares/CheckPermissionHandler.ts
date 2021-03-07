@@ -11,9 +11,8 @@ export class CheckPermissionHandler<Request, Response> extends UseCaseHandler<Re
   }
 
   handle(request?: Request): Response | Promise<Response> {
-    if (this.useCaseName != '')
-      return this.next(request)
-    return 
+    console.log('CheckPermissionHandler - Handle - Usecase: ' + this.useCaseName);
+    return this.next(request)
   }
 
 }

@@ -6,10 +6,11 @@ export abstract class UseCase<Request, Response> {
 
   constructor() {
   }
-  
+
   execute (request?: Request) : Promise<Response> | Response {
+    let res = null;
     if (this.chainedHandlers != null)
-      return this.chainedHandlers.handle(request);
+      res = this.chainedHandlers.handle(request);
     return this.executeImpl(request);
   }
 

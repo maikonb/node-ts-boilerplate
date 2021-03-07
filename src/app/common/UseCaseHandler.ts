@@ -17,9 +17,7 @@ export abstract class UseCaseHandler<Request, Response> {
   protected next(request?: Request): Promise<Response> | Response {
     if (this.nextHandler)
       return this.nextHandler.handle(request);
-    if (this.useCaseImpl)
-      return this.useCaseImpl.execute(request);
-    return null; // it shouldn't never reach this point
+    return null; 
   }
 
   abstract handle (request?: Request) : Promise<Response> | Response;
