@@ -10,12 +10,7 @@ export class GetNamesController extends BaseController {
 
   protected async executeImpl(req: express.Request, res: express.Response): Promise<void | any> {
     let result = await this.usecase.execute();
-    if (result.isSuccess) {
-      return this.success(res, result.data);
-    }
-
-    
-
+    return this.success(res, result);
   }
 
 }

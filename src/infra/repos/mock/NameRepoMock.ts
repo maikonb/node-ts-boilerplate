@@ -1,34 +1,44 @@
-import { Repository, ResponseType } from "../../../app/common/Repository/Repository";
-import { Result } from "../../../app/common/Result/Result";
-import { ResultSuccess } from "../../../app/common/Result/ResultSuccess";
 import { Gender, Name } from "../../../app/domain/Name";
 import { NameRepo } from "../../../app/repos/NameRepo";
 
 export class NameRepoMock extends NameRepo {
 
-  exists(r: Name): Promise<ResponseType<boolean>> {
+  exists(r: Name): Promise<boolean> {
+    return Promise.resolve(
+      this.names.some((name) => (
+        (name.first_name===r.first_name) && 
+        (name.last_name===r.last_name) && 
+        (name.gender===r.gender) && 
+        (name.fullname===r.fullname)
+      ))
+    );
+  }
+  delete(r: Name): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  delete(r: Name): Promise<ResponseType<boolean>> {
+  update(r: Name): Promise<Name> {
+    if ('uuid' in r) {
+      let index = this.names.findIndex((name) => name.uuid === r.uuid);
+      if (index >= 0)
+        this.names[index] = r;
+    }
+    throw new Error("Missing field 'uuid'");
+  }
+  create(r: Name): Promise<Name> {
+    this.names.push(r);
+    return Promise.resolve(r);
+  }
+  findByFields(values: Partial<Name>): Promise<Name[]> {
     throw new Error("Method not implemented.");
   }
-  update(r: Name): Promise<ResponseType<Name>> {
+  findBy< F extends keyof Name >(field: keyof Name, value: Name[F]): Promise<  Name[]>  {
     throw new Error("Method not implemented.");
   }
-  create(r: Name): Promise<ResponseType<Name>> {
+  hasAny(values: Partial<Name>): Promise<boolean> {
     throw new Error("Method not implemented.");
   }
-  findByFields(values: Partial<Name>): Promise<ResponseType<Name[]>> {
-    throw new Error("Method not implemented.");
-  }
-  findBy< F extends keyof Name >(field: keyof Name, value: Name[F]): Promise<  ResponseType<Name[]>  > {
-    throw new Error("Method not implemented.");
-  }
-  hasAny(values: Partial<Name>): Promise<ResponseType<boolean>> {
-    throw new Error("Method not implemented.");
-  }
-  count(values: Partial<Name>): Promise<ResponseType<number>> {
-    throw new Error("Method not implemented.");
+  count(values: Partial<Name>): Promise<number> {
+    return Promise.resolve( this.names.length );
   }
   
   private names: Name[] = [ 
@@ -38,9 +48,9 @@ export class NameRepoMock extends NameRepo {
     {uuid: '00004', first_name: 'Sam', last_name: 'Flem', gender: Gender.MALE, fullname: 'Sam T. Flem'},
   ];
 
-  all(): Promise<  ResponseType<Name[]> > {
-    let res: ResultSuccess<Name[]> = new ResultSuccess('', this.names);
-    return Promise.resolve(Result.success(res));;
+  all(): Promise< Name[]> {
+    let res = this.names;
+    return Promise.resolve(res);
   }
 
 }

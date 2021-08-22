@@ -15,9 +15,17 @@ export abstract class UseCaseHandler<Request, Response> {
   }
 
   protected next(request?: Request): Promise<Response> | Response {
+    let ret = null;
     if (this.nextHandler)
-      return this.nextHandler.handle(request);
-    return null; 
+      ret = this.nextHandler.handle(request);
+    return ret;
+  }
+
+  public setLastOfTheChain(nextHandler: UseCaseHandler<Request, Response>) {
+    if (this.nextHandler === null)
+      this.setNext(nextHandler);
+    else
+      this.nextHandler.setLastOfTheChain(nextHandler);
   }
 
   abstract handle (request?: Request) : Promise<Response> | Response;

@@ -11,6 +11,7 @@ export abstract class UseCase<Request, Response> {
     let res = null;
     if (this.chainedHandlers != null)
       res = this.chainedHandlers.handle(request);
+    if (res) return res;
     return this.executeImpl(request);
   }
 
@@ -21,8 +22,10 @@ export abstract class UseCase<Request, Response> {
     ...args: any[]
   ) {
     let handler = new ClassName(this, args);
-    handler.setNext(this.chainedHandlers);
-    this.chainedHandlers = handler;
+    if  (this.chainedHandlers === null)
+      this.chainedHandlers = handler;
+    else 
+      this.chainedHandlers.setLastOfTheChain(handler);
   }
 
 }
