@@ -1,5 +1,5 @@
 import { UseCase } from "../../common/UseCase";
-import { UseCaseHandler } from "../../common/UseCaseHandler";
+import { UseCaseCallbackHandler, UseCaseHandler } from "../../common/UseCaseHandler";
 
 export class CheckAuthenticationHandler<Request, Response> extends UseCaseHandler<Request, Response>  {
 
@@ -7,10 +7,12 @@ export class CheckAuthenticationHandler<Request, Response> extends UseCaseHandle
     super(useCaseImpl);
   }
 
-  handle(request?: Request): Response | Promise<Response> {
-    console.log('CheckAuthenticationHandler - Handle');
-    return this.next(request);
-    // return null;
+  async handle(handler: UseCaseCallbackHandler<Request, Response>, request?: Request): Promise<Response> {
+    console.log('CheckAuthenticationHandler - Handle - ANTES');
+    let res = await this.next(handler, request)
+    console.log(res);
+    console.log('CheckAuthenticationHandler - Handle - DEPOIS');
+    return res;
   }
 
 }

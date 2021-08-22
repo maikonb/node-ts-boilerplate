@@ -1,5 +1,5 @@
 import { UseCase } from "../../common/UseCase";
-import { UseCaseHandler } from "../../common/UseCaseHandler";
+import { UseCaseCallbackHandler, UseCaseHandler } from "../../common/UseCaseHandler";
 
 export class CheckPermissionHandler<Request, Response> extends UseCaseHandler<Request, Response>  {
 
@@ -10,9 +10,9 @@ export class CheckPermissionHandler<Request, Response> extends UseCaseHandler<Re
     this.useCaseName = useCaseName;
   }
 
-  handle(request?: Request): Response | Promise<Response> {
+  handle(handler: UseCaseCallbackHandler<Request, Response>, request?: Request): Response | Promise<Response> {
     console.log('CheckPermissionHandler - Handle - Usecase: ' + this.useCaseName);
-    return this.next(request)
+    return this.next(handler, request)
   }
 
 }

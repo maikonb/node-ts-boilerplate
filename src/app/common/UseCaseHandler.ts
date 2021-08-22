@@ -1,9 +1,12 @@
 import { UseCase } from "./UseCase";
 
+export type UseCaseCallbackHandler<Request, Response> = (request: Request) => Promise<Response> | Response;
+
 export abstract class UseCaseHandler<Request, Response> {
   
   protected nextHandler: UseCaseHandler<Request, Response> = null;
   protected useCaseImpl: UseCase<Request, Response> = null;
+
 
   constructor(useCaseImpl: UseCase<Request, Response>) {
     this.useCaseImpl = useCaseImpl;
@@ -14,11 +17,10 @@ export abstract class UseCaseHandler<Request, Response> {
       this.nextHandler = nextHandler;
   }
 
-  protected next(request?: Request): Promise<Response> | Response {
-    let ret = null;
+  protected next(handler: UseCaseCallbackHandler<Request, Response>, request?: Request): Promise<Response> | Response {
     if (this.nextHandler)
-      ret = this.nextHandler.handle(request);
-    return ret;
+      return this.nextHandler.handle(handler, request);
+    return handler(request);
   }
 
   public setLastOfTheChain(nextHandler: UseCaseHandler<Request, Response>) {
@@ -28,7 +30,7 @@ export abstract class UseCaseHandler<Request, Response> {
       this.nextHandler.setLastOfTheChain(nextHandler);
   }
 
-  abstract handle (request?: Request) : Promise<Response> | Response;
+  abstract handle (handler: UseCaseCallbackHandler<Request, Response>, request?: Request) : Promise<Response> | Response;
 
 }
 
