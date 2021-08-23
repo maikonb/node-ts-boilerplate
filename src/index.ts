@@ -1,2 +1,1 @@
-import "./infra";
-import "./app";
+import "./core/infra";
