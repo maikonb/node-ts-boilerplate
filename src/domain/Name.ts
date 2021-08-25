@@ -4,7 +4,7 @@ export enum Gender {
 }
 
 export interface Name {
-  uuid: string;
+  uuid?: string;
   fullname: string;
   first_name: string;
   last_name: string;

@@ -1,19 +1,20 @@
 import { Inject } from "typescript-ioc";
-import { ApplicationError } from '../../../core/errors/ApplicationError';
-import { ValidationError } from '../../../core/errors/ValidationError';
-import { Result } from '../../../core/result/Result';
-import { UseCase } from '../../../core/use-cases/UseCase';
-import { CheckAuthenticationHandler } from '../../common/middlewares/CheckAuthenticationHandler';
-import { CheckPermissionHandler } from '../../common/middlewares/CheckPermissionHandler';
-import { Name } from '../domain/Name';
-import { NameRepo } from '../repos/NameRepo';
+import { CheckAuthenticationHandler } from '../../../../common/middlewares/CheckAuthenticationHandler';
+import { CheckPermissionHandler } from '../../../../common/middlewares/CheckPermissionHandler';
+import { ApplicationError } from '../../../../core/errors/ApplicationError';
+import { ValidationError } from '../../../../core/errors/ValidationError';
+import { Result } from '../../../../core/result/Result';
+import { UseCase } from '../../../../core/use-cases/UseCase';
+import { Name } from '../../../../domain/Name';
+import { NameRepo } from '../../repos/NameRepo';
+
 
 type Response = 
   Result<Name[]> | 
   Result<ValidationError> |
   Result<ApplicationError>;
 
-export class ListAllNames extends UseCase< any, Response> {
+export class ListNamesUseCase extends UseCase< any, Response> {
   
   @Inject
   private repo: NameRepo;

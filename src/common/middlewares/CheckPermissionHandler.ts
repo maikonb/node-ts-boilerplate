@@ -1,5 +1,5 @@
-import { UseCase } from '../../../core/use-cases/UseCase';
-import { UseCaseCallbackHandler, UseCaseHandler } from '../../../core/use-cases/UseCaseHandler';
+import { UseCase } from '../../core/use-cases/UseCase';
+import { UseCaseCallbackHandler, UseCaseHandler } from '../../core/use-cases/UseCaseHandler';
 
 export class CheckPermissionHandler<Request, Response> extends UseCaseHandler<Request, Response>  {
 

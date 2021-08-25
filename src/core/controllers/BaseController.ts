@@ -48,4 +48,7 @@ export abstract class BaseController {
     return this.sendResponse(res, 403, { data });
   }
   
+  protected notFound(res: express.Response, data?: any) {
+    return this.sendResponse(res, 404, { data });
+  }  
 } 

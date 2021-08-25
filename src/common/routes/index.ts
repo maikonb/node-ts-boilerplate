@@ -1,4 +1,4 @@
-import { names } from './names';
+import { names } from '../../modules/names/routes/names';
 import * as express from 'express';
 
 const router = express.Router();

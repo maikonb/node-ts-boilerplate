@@ -1,5 +1,5 @@
 import { Container } from "typescript-ioc";
-import { config } from '../../modules/common/container/ioc.config';
+import { config } from '../../common/container/ioc.config';
 
 
 

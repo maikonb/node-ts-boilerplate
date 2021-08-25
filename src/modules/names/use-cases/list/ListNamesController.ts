@@ -1,12 +1,12 @@
 import * as express from 'express';
 import { Inject } from "typescript-ioc";
 import { BaseController } from '../../../../core/controllers/BaseController';
-import { ListAllNames } from '../../usecases/ListAllNames';
+import { ListNamesUseCase } from './ListNamesUseCase';
 
-export class GetNamesController extends BaseController {
+export class ListNamesController extends BaseController {
   
   @Inject
-  private usecase: ListAllNames;
+  private usecase: ListNamesUseCase;
 
   protected async executeImpl(req: express.Request, res: express.Response): Promise<void | any> {
     let result = await this.usecase.execute();
