@@ -13,7 +13,7 @@ export class DeleteNameController extends BaseController {
     let uuid = req.params.uuid;
     let result = await this.usecase.execute(uuid);
     if (result.isSuccess) return this.success(res, result);
-    return this.badRequest(res, result);
+    return this.mapToHttpError(res, result.data);
   }
 
 }

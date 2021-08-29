@@ -2,6 +2,8 @@ import { Inject } from "typescript-ioc";
 import { CheckAuthenticationHandler } from '../../../../common/middlewares/CheckAuthenticationHandler';
 import { CheckPermissionHandler } from '../../../../common/middlewares/CheckPermissionHandler';
 import { ApplicationError } from '../../../../core/errors/ApplicationError';
+import { DomainError } from '../../../../core/errors/DomainError';
+import { NotFoundError } from '../../../../core/errors/NotFoundError';
 import { ValidationError } from '../../../../core/errors/ValidationError';
 import { Result } from '../../../../core/result/Result';
 import { UseCase } from '../../../../core/use-cases/UseCase';
@@ -11,8 +13,7 @@ import { NameRepo } from '../../repos/NameRepo';
 
 type Response = 
   Result<boolean> | 
-  Result<ValidationError> |
-  Result<ApplicationError>;
+  Result<DomainError>;
 
 export class DeleteNameUseCase extends UseCase< any, Response> {
   
@@ -29,14 +30,16 @@ export class DeleteNameUseCase extends UseCase< any, Response> {
     let res;
     try {
       let name = await this.repo.findOne('uuid', uuid);
-      if (!!name === false) 
-        return Result.error(false, "Name not found.");
+      if (!!name === false)
+        return Result.error(
+          NotFoundError.create("Name not found")
+        );
       res = await this.repo.delete(name);
     }
     catch(error) {
       return Result.error(
-        ApplicationError.create(error.message, error),
-        "An unexpected error occurred during this operation."
+        ApplicationError.create(
+          "An unexpected error occurred during this operation.", error),
       );
     }
     return Result.success(res);

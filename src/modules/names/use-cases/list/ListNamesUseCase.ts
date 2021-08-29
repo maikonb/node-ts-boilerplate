@@ -32,8 +32,8 @@ export class ListNamesUseCase extends UseCase< any, Response> {
     }
     catch(error) {
       return Result.error(
-        ApplicationError.create(error.message, error),
-        "An unexpected error occurred during this operation."
+        ApplicationError.create(
+          "An unexpected error occurred during this operation.", error)
       );
     }
     let res = Result.success(names);

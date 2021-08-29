@@ -18,7 +18,7 @@ export class Result<T> {
     return new Result<T>(true, res, usr_msg, log_msg);
   }
 
-  public static error<T> (res: T, usr_msg?: string, log_msg?: string): Result<T> {
+  public static error<T> (res: T): Result<T> {
     return new Result<T>(false, res);
   }
 

@@ -1,3 +1,5 @@
+import { DomainError } from './DomainError';
+
 export enum ValidationErrorType {
   MISSING_FIELD = 'MISSING_FIELD',
   MISMATCH_TYPE = 'MISMATCH_TYPE',
@@ -8,11 +10,13 @@ export interface FieldsDescriptor {
   [key: string]: ValidationErrorType
 }
 
-export class ValidationError {
+export class ValidationError extends DomainError {
 
   readonly fields: FieldsDescriptor  = {};
 
-  private constructor(readonly message: string) {}
+  private constructor(readonly message: string) {
+    super();
+  }
 
   static create(message:string) {
     return new ValidationError(message);

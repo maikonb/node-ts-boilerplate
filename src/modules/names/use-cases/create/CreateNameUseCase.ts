@@ -33,8 +33,8 @@ export class CreateNameUseCase extends UseCase<CreateNameDTO, Response> {
     }
     catch(error) {
       return Result.error(
-        ApplicationError.create(error.message, error),
-        "An unexpected error occurred during this operation."
+        ApplicationError.create(
+          "An unexpected error occurred during this operation.", error)
       );
     }
     return Result.success(newlyName);

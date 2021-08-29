@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { HttpErrorFactory } from '../infra/http-errors/HttpErrorFactory';
 
 export abstract class BaseController {
   
@@ -50,5 +51,10 @@ export abstract class BaseController {
   
   protected notFound(res: express.Response, data?: any) {
     return this.sendResponse(res, 404, { data });
-  }  
+  }
+
+  protected mapToHttpError(res: express.Response, data?: any) {
+    let httpErr = HttpErrorFactory.getInstance().makeHttpError(data);
+    return httpErr.handle(res);
+  }
 } 
