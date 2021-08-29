@@ -37,7 +37,7 @@ export class CreateNameUseCase extends UseCase<CreateNameDTO, Response> {
           "An unexpected error occurred during this operation.", error)
       );
     }
-    return Result.success(newlyName);
+    return Result.success(newlyName, "Name created successfuly.");
   }
 
 }

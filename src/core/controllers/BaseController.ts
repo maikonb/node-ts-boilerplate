@@ -18,19 +18,22 @@ export abstract class BaseController {
     }
   }
 
-  protected sendResponse(res: express.Response, statusCode: number, data?: { message?: string, data?: any} ) {
-    if (typeof data !== 'undefined' ) {
-      return res.status(statusCode).json(data);
+  protected sendResponse(res: express.Response, statusCode: number, data?: any ) {
+    if (!!data === true) {
+      let resData: any = { data: data.data };
+      if ('usr_msg' in data && data.usr_msg != '') 
+        resData.message = data.usr_msg;
+      return res.status(statusCode).json(resData);
     }
     return res.status(statusCode);
   }
 
   protected success(res: express.Response, data?: any) {
-    return this.sendResponse(res, 200, { data });
+    return this.sendResponse(res, 200, data);
   }
 
   protected created(res: express.Response, data?: any) {
-    return this.sendResponse(res, 201, { data });
+    return this.sendResponse(res, 201, data);    
   }
   
   protected internalError(res: express.Response, data?: any) {

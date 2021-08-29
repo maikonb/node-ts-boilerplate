@@ -42,7 +42,7 @@ export class DeleteNameUseCase extends UseCase< any, Response> {
           "An unexpected error occurred during this operation.", error),
       );
     }
-    return Result.success(res);
+    return Result.success(res, "The name has been deleted.");
   }
 
 }

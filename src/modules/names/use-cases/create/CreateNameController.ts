@@ -12,7 +12,7 @@ export class CreateNameController extends BaseController {
   protected async executeImpl(req: express.Request, res: express.Response): Promise<void | any> {
     let name: CreateNameDTO = req.body;
     let createdName = await this.usecase.execute(name);
-    return this.success(res, createdName);
+    return this.created(res, createdName);
   }
 
 }

@@ -18,7 +18,7 @@ export class NameRepoMock extends NameRepo {
     let index = this.names.findIndex((name) => name.uuid === r.uuid);
     if (index < 0) return Promise.resolve(false);
     this.names = this.names.filter((name) => name.uuid != r.uuid);
-    return Promise.resolve(false);
+    return Promise.resolve(true);
   }
   update(r: Name): Promise<Name> {
     if ('uuid' in r) {
