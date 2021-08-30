@@ -20,11 +20,14 @@ export class NameRepoMock extends NameRepo {
     this.names = this.names.filter((name) => name.uuid != r.uuid);
     return Promise.resolve(true);
   }
-  update(r: Name): Promise<Name> {
+  update(r: Partial<Name>): Promise<Name> {
     if ('uuid' in r) {
       let index = this.names.findIndex((name) => name.uuid === r.uuid);
-      if (index >= 0)
-        this.names[index] = r;
+      if (index >= 0) {
+        this.names[index] = {...this.names[index], ...r};
+        return Promise.resolve(this.names[index]);
+      }
+      throw new Error("Name not found.");  
     }
     throw new Error("Missing field 'uuid'");
   }
